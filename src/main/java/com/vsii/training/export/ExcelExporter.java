@@ -8,10 +8,10 @@ import java.util.Date;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 
-public class AdvancedDb2ExcelExporter {
+public class ExcelExporter {
 
     public static void main(String[] args) {
-        AdvancedDb2ExcelExporter exporter = new AdvancedDb2ExcelExporter();
+        ExcelExporter exporter = new ExcelExporter();
         exporter.export("files");
     }
 

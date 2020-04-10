@@ -17,6 +17,9 @@ public class DBFileStorageService {
     @Autowired
     private DBFileRepository dbFileRepository;
 
+    @Autowired
+    private MailSenderService mailSenderService;
+
     public DBFile storeFile(MultipartFile file) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -29,7 +32,11 @@ public class DBFileStorageService {
         DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getSize());
         dbFile.setUploadedTime(LocalDateTime.now());
 
-        return dbFileRepository.save(dbFile);
+        DBFile dbFile1 = dbFileRepository.save(dbFile);
+        if (dbFile1 != null) {
+            mailSenderService.sendSimpleEmail();
+        }
+        return dbFile1;
     }
 
     public DBFile getFile(String fileId) {
